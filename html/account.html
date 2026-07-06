@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account | Reanty</title>
+  <link rel="stylesheet" href="../css/account.css">
+</head>
+<body>
+  <main class="account-page">
+    <section class="account-shell" aria-label="Account access">
+      <div class="account-brand">
+        <a class="logo" href="index.html#home">
+          <img src="../images/logofooter.png" alt="Reanty">
+        </a>
+        <h1>Welcome to Reanty</h1>
+        <p>Access your saved homes, favorite properties, and account details in one calm place.</p>
+        <div class="brand-card">
+          <span>Find homes faster</span>
+          <strong>Smart property tools for buyers, renters, and sellers.</strong>
+        </div>
+      </div>
+
+      <div class="account-panel">
+        <div class="account-switch" role="tablist" aria-label="Account form switch">
+          <button class="switch-btn is-active" type="button" data-panel="login" role="tab" aria-selected="true">Log In</button>
+          <button class="switch-btn" type="button" data-panel="signup" role="tab" aria-selected="false">Sign Up</button>
+        </div>
+
+        <div class="forms-track">
+          <form class="account-form login-form is-active" action="#" method="post" data-form="login">
+            <div class="form-heading">
+              <h2>Log In</h2>
+              <p>Enter your account information to continue.</p>
+            </div>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="login-email" placeholder="Enter your email">
+            </label>
+
+            <label>
+              <span>Password</span>
+              <input type="password" name="login-password" placeholder="Enter your password">
+            </label>
+
+            <div class="form-options">
+              <label class="remember">
+                <input type="checkbox" name="remember-account">
+                <span>Remember account</span>
+              </label>
+              <a href="#">Forgot password?</a>
+            </div>
+
+            <button class="account-submit" type="submit">Log In</button>
+          </form>
+
+          <form class="account-form signup-form" action="#" method="post" data-form="signup">
+            <div class="form-heading">
+              <h2>Create Account</h2>
+              <p>Create a free account. No backend connection is required.</p>
+            </div>
+
+            <div class="field-grid">
+              <label>
+                <span>Full Name</span>
+                <input type="text" name="full-name" placeholder="Enter your full name">
+              </label>
+
+              <label>
+                <span>Username</span>
+                <input type="text" name="username" placeholder="Choose a username">
+              </label>
+            </div>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="signup-email" placeholder="Enter your email">
+            </label>
+
+            <div class="field-grid">
+              <label>
+                <span>Password</span>
+                <input type="password" name="signup-password" placeholder="Create a password">
+              </label>
+
+              <label>
+                <span>Confirm Password</span>
+                <input type="password" name="confirm-password" placeholder="Confirm your password">
+              </label>
+            </div>
+
+            <div class="field-grid">
+              <label>
+                <span>Phone Number</span>
+                <input type="tel" name="phone" placeholder="Enter your phone number">
+              </label>
+
+              <label>
+                <span>Birthday</span>
+                <input type="date" name="birthday">
+              </label>
+            </div>
+
+            <label>
+              <span>Address</span>
+              <input type="text" name="address" placeholder="Enter your address">
+            </label>
+
+            <button class="account-submit" type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const switchButtons = document.querySelectorAll('.switch-btn');
+    const accountForms = document.querySelectorAll('.account-form');
+
+    const showAccountForm = (panel) => {
+      switchButtons.forEach((button) => {
+        const isActive = button.dataset.panel === panel;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-selected', isActive);
+      });
+
+      accountForms.forEach((form) => {
+        form.classList.toggle('is-active', form.dataset.form === panel);
+      });
+
+      if (window.location.hash !== `#${panel}`) {
+        history.replaceState(null, '', `#${panel}`);
+      }
+    };
+
+    switchButtons.forEach((button) => {
+      button.addEventListener('click', () => showAccountForm(button.dataset.panel));
+    });
+
+    accountForms.forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        window.location.href = 'index.html#home';
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      showAccountForm(window.location.hash === '#signup' ? 'signup' : 'login');
+    });
+
+    showAccountForm(window.location.hash === '#signup' ? 'signup' : 'login');
+  </script>
+</body>
+</html>
